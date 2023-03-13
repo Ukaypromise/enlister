@@ -1,12 +1,11 @@
 import "dotenv/config";
 import "dotenv/config";
 import express, { NextFunction, Request, Response } from "express";
-import NoteModel from "./models/note";
 import noteRoutes from "./routes/notes";
 
 const app = express();
+app.use(express.json()); //Allows us to parse JSON bodies
 app.use("/api/notes", noteRoutes);
-
 
 app.use((req, res, next) => {
   next(Error("Error fetching notes"));

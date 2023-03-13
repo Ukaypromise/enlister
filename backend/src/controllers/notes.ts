@@ -1,12 +1,25 @@
 import { RequestHandler } from "express";
 import NoteModel from "../models/note";
 
-export const getNotes:RequestHandler= async (req, res, next) => {
+export const getNotes: RequestHandler = async (req, res, next) => {
   try {
-    // throw Error("Error fetching notes");
     const notes = await NoteModel.find().exec();
     res.status(200).json(notes);
   } catch (error) {
     next(error);
   }
-}
+};
+
+export const createNote: RequestHandler = async (req, res, next) => {
+  const title = req.body.title;
+  const content = req.body.content;
+  try {
+    const newNote = await NoteModel.create({
+      title: title,
+      content: content,
+    });
+    res.status(201).json(newNote);
+  } catch (error) {
+    next(error);
+  }
+};
