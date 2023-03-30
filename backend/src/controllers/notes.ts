@@ -17,12 +17,12 @@ export const getNote: RequestHandler = async (req, res, next) => {
 
   try {
     if (!mongoose.isValidObjectId(noteId)) {
-      throw createHttpError(404, "Invalid note ID");
+      throw createHttpError(404, "Invalid note ID, ");
     }
 
     const note = await NoteModel.findById(noteId).exec();
     if (!note) {
-      throw createHttpError(404, "Note not found");
+      throw createHttpError(404, "Note not found with this ID");
     }
 
     res.status(200).json(note);
